@@ -1,24 +1,70 @@
+// eslint-disable-next-line no-unused-vars
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 function Login() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [userId, setUserId] = useState(null); // State to store userId
+    const navigate = useNavigate();
+
+
+    const handleLogin = async (e) => {
+        e.preventDefault(); // Prevent default form submission
+
+        const loginData = {
+            username,
+            password
+        };
+
+        try {
+            const response = await fetch('http://localhost:8080/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(loginData)
+            });
+
+            if (response.ok) {
+                // Login successful, handle response
+                const responseData = await response.json();
+                console.log('Login successful', responseData);
+                setUserId(responseData.userId); // Store userId in state
+                navigate('/dashboard');
+                // Optionally, you can redirect the user or perform other actions upon successful login
+            } else {
+                // Login failed, handle error
+                const errorData = await response.json();
+                console.error('Login failed', errorData);
+                // Optionally, you can display an error message to the user
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            // Handle network errors or other exceptions
+        }
+    };
+
     return (
-        <div class="h-screen flex justify-center">
-            <div class="py-6 px-8 h-80 mt-20 bg-white rounded shadow-xl">
-                <form action="">
-                    <div class="mb-6">
-                        <label for="name" class="block text-gray-800 font-bold">Name:</label>
-                        <input type="text" name="name" id="name" placeholder="username" class="w-full bg-slate-100 text-black border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" />
+        <div className="h-screen flex justify-center">
+            <div className="py-6 px-8 h-80 mt-20 bg-white rounded shadow-xl">
+                <form onSubmit={handleLogin}>
+                    <div className="mb-6">
+                        <label htmlFor="username" className="block text-gray-800 font-bold">Username:</label>
+                        <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Enter your username" className="w-full bg-slate-100 text-black border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" />
                     </div>
 
                     <div>
-                        <label for="email" class="block text-gray-800 font-bold">Email:</label>
-                        <input type="text" name="email" id="email" placeholder="abc@email.com" class="w-full bg-slate-100 text-black border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" />
-
-                        <a href="#" class="text-sm font-thin text-gray-800 hover:underline mt-2 inline-block hover:text-indigo-600">Forget Password</a>
+                        <label htmlFor="password" className="block text-gray-800 font-bold">Password:</label>
+                        <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" className="w-full bg-slate-100 text-black border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" />
                     </div>
-                    <butt class="cursor-pointer py-2 px-4 block mt-6 bg-indigo-500 text-white font-bold w-full text-center rounded">Login</butt>
+                    
+                    <button type="submit" className="cursor-pointer py-2 px-4 block mt-6 bg-indigo-500 text-white font-bold w-full text-center rounded">Login</button>
                 </form>
+                {userId && <p>User ID: {userId}</p>} {/* Display userId if it exists */}
             </div>
         </div>
-    )
+    );
 }
 
-export default Login
+export default Login;
