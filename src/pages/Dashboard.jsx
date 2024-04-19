@@ -9,7 +9,7 @@ const Dashboard = () => {
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
             
-                <a href="/top" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Top</a>
+                <a href="/Top" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Top</a>
                 <a href="/bottom" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Bottom</a>
                 <a href="/shoes" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Shoes</a>
                
