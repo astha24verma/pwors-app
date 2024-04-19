@@ -8,9 +8,12 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'; 
+import { UserProvider } from './pages/UserContext'
+import Top from './pages/Top'
 
 function App() {
   return (
+    <UserProvider>
     <Router>
       <div className="h-auto w-screen bg-gray-900 text-white">
         <Header />
@@ -20,12 +23,14 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/top" element={<Top />} />
           </Routes>
         </main>
         <Footer />
       </div>
     </Router>
-  )
+    </UserProvider>
+  );
 }
 
 export default App

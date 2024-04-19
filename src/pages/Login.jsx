@@ -1,16 +1,17 @@
+
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUserContext } from './UserContext';
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [userId, setUserId] = useState(null); // State to store userId
     const navigate = useNavigate();
-
+    const { setUser } = useUserContext();
 
     const handleLogin = async (e) => {
-        e.preventDefault(); // Prevent default form submission
+        e.preventDefault();
 
         const loginData = {
             username,
@@ -27,21 +28,17 @@ function Login() {
             });
 
             if (response.ok) {
-                // Login successful, handle response
                 const responseData = await response.json();
                 console.log('Login successful', responseData);
-                setUserId(responseData.userId); // Store userId in state
+                setUser(responseData.userId);
+                
                 navigate('/dashboard');
-                // Optionally, you can redirect the user or perform other actions upon successful login
             } else {
-                // Login failed, handle error
                 const errorData = await response.json();
                 console.error('Login failed', errorData);
-                // Optionally, you can display an error message to the user
             }
         } catch (error) {
             console.error('Error:', error);
-            // Handle network errors or other exceptions
         }
     };
 
@@ -61,7 +58,6 @@ function Login() {
                     
                     <button type="submit" className="cursor-pointer py-2 px-4 block mt-6 bg-indigo-500 text-white font-bold w-full text-center rounded">Login</button>
                 </form>
-                {userId && <p>User ID: {userId}</p>} {/* Display userId if it exists */}
             </div>
         </div>
     );
