@@ -10,6 +10,8 @@ import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'; 
 import { UserProvider } from './pages/UserContext'
 import Top from './pages/Top'
+import Bottom from './pages/Bottom'
+import Shoes from './pages/Shoes'
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/top" element={<Top />} />
+            <Route path="/bottom" element={<Bottom />} />
+            <Route path="/shoes" element={<Shoes />} />
           </Routes>
         </main>
         <Footer />

@@ -1,8 +1,12 @@
 
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from './UserContext';
+import {
+    BASE_URL,
+    LOGIN_USER_ENDPOINT
+} from './apiEndpoints';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -19,7 +23,7 @@ function Login() {
         };
 
         try {
-            const response = await fetch('http://localhost:8080/users/login', {
+            const response = await fetch(`${BASE_URL}${LOGIN_USER_ENDPOINT}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -31,7 +35,7 @@ function Login() {
                 const responseData = await response.json();
                 console.log('Login successful', responseData);
                 setUser(responseData.userId);
-                
+
                 navigate('/dashboard');
             } else {
                 const errorData = await response.json();
@@ -41,7 +45,8 @@ function Login() {
             console.error('Error:', error);
         }
     };
-
+    // const user = useContext(UserContext);
+    // console.log('User:', user);
     return (
         <div className="h-screen flex justify-center">
             <div className="py-6 px-8 h-80 mt-20 bg-white rounded shadow-xl">

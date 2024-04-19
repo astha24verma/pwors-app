@@ -2,13 +2,13 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useUserContext } from './UserContext';
 import {
+    BOTTOM_ADD_ENDPOINT,
     BASE_URL,
-    TOP_ADD_ENDPOINT,
-    TOP_GET_BY_COLOR_ENDPOINT,
-    TOP_GET_BY_GENRE_ENDPOINT,
+    BOTTOM_GET_BY_COLOR_ENDPOINT,
+    BOTTOM_GET_BY_GENRE_ENDPOINT,
 } from './apiEndpoints';
 
-function Top() {
+function Bottom() {
     const user = useUserContext();
     // console.log('User:', user);
     
@@ -29,7 +29,7 @@ function Top() {
     const handleSubmit = (e) => {
         e.preventDefault();
         // console.log('Form data:', formData);
-        fetch(`${BASE_URL}${TOP_ADD_ENDPOINT}`, {
+        fetch(`${BASE_URL}${BOTTOM_ADD_ENDPOINT}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ function Top() {
     };
 
     const handleColorChange = (e) => {
-        fetch(`${BASE_URL}${TOP_GET_BY_COLOR_ENDPOINT}?color=${e.target.value}&userId=${user.user}`)
+        fetch(`${BASE_URL}${BOTTOM_GET_BY_COLOR_ENDPOINT}?color=${e.target.value}&userId=${user.user}`)
         .then(response => response.json())
         .then(data => console.log(data))
         .catch(error => console.error('Error:', error));
@@ -54,7 +54,7 @@ function Top() {
     }
 
     const handleGenreChange = (e) => {
-        fetch(`${BASE_URL}${TOP_GET_BY_GENRE_ENDPOINT}?Genre=${e.target.value}&userId=${user.user}`)
+        fetch(`${BASE_URL}${BOTTOM_GET_BY_GENRE_ENDPOINT}?genre=${e.target.value}&userId=${user.user}`)
         .then(response => response.json())
         .then(data => console.log(data))
         .catch(error => console.error('Error:', error));
@@ -62,7 +62,7 @@ function Top() {
 
     return (
         <div>
-        <h1>Top Component</h1>
+        <h1>Bottom Component</h1>
         <form onSubmit={handleSubmit}>
             <input type="text" name="name" value={formData.name} onChange={handleChange} required />
             <select name="color" value={formData.color} onChange={handleChange} required>
@@ -98,7 +98,7 @@ function Top() {
                 <option value="FEMALE">Female</option>
                 <option value="OTHER">Other</option>
             </select>
-            <button onClick={handleSubmit} type="submit">Add Top</button>
+            <button onClick={handleSubmit} type="submit">Add Bottom</button>
         </form>
         <div>
             <select id='colorSelect' name="color" onChange={handleColorChange}>
@@ -129,4 +129,4 @@ function Top() {
     );
 }
 
-export default Top;
+export default Bottom;

@@ -1,5 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
+import{
+    BASE_URL,
+    SIGNUP_USER_ENDPOINT,
+} from './apiEndpoints';
 
 function Signup() {
     const [username, setUsername] = useState('');
@@ -20,7 +24,7 @@ function Signup() {
         };
 
         try {
-            const response = await fetch('http://localhost:8080/users/register', {
+            const response = await fetch(`${BASE_URL}${SIGNUP_USER_ENDPOINT}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
