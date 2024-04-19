@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Dashboard() {
     return (
         <>
-            <nav style={{ position: 'fixed', top: 0, left: 0, width: '100%', backgroundColor: '#fff' }}>
+            <nav style={{ position: 'relative', top: 100, left: 0, width: '100%', backgroundColor: 'transparent' }}>
                 <ul style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 20px', listStyleType: 'none', margin: 0 }}>
                     <li style={{ padding: '10px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px' }}><Link to="/top">Top</Link></li>
                     <li style={{ padding: '10px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px' }}><Link to="/bottom">Bottom</Link></li>
