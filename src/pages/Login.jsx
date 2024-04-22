@@ -35,7 +35,7 @@ function Login() {
                 const responseData = await response.json();
                 console.log('Login successful', responseData);
                 setUser(responseData.userId);
-
+                localStorage.setItem('userId', responseData.userId);
                 navigate('/dashboard');
             } else {
                 const errorData = await response.json();
@@ -45,6 +45,9 @@ function Login() {
             console.error('Error:', error);
         }
     };
+    if (localStorage.getItem('userId')) {
+        navigate('/dashboard');
+    }
     // const user = useContext(UserContext);
     // console.log('User:', user);
     return (

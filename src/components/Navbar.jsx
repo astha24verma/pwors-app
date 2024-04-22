@@ -21,7 +21,14 @@ function Navbar() {
             <div className="flex space-x-4 items-center">
             {user ? (
               <a href="/">
-                <button className="hover:text-gray-300">Logout</button>
+                <button 
+                    className="hover:text-gray-300" 
+                    onClick={() => {
+                        localStorage.removeItem('userId');
+                    }}
+                >
+                    Logout
+                </button>
               </a>
                       ) : (
                         <>

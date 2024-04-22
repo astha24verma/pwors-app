@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState, useContext } from 'react';
-import { useUserContext } from './UserContext';
+import useSessionUserId from './useSessionUserId';
+import { useNavigate } from 'react-router-dom';
 import {
     BOTTOM_ADD_ENDPOINT,
     BASE_URL,
@@ -9,8 +10,16 @@ import {
 } from './apiEndpoints';
 
 function Bottom() {
-    const user = useUserContext();
+    const { userId, loading } = useSessionUserId();
+    const navigate = useNavigate();
     // console.log('User:', user);
+
+    useEffect(() => {
+        console.log('User:', userId, loading);
+        if (!loading && !userId) {
+            navigate('/login');
+        }
+    }, [userId, navigate, loading]);
     
     const [formData, setFormData] = useState({
         name: '',
@@ -18,7 +27,7 @@ function Bottom() {
         color_type: '',
         gender: '',
         genre: '',
-        userId: user.user
+        userId: userId
     });
 
     const handleChange = (e) => {
@@ -46,7 +55,7 @@ function Bottom() {
     };
 
     const handleColorChange = (e) => {
-        fetch(`${BASE_URL}${BOTTOM_GET_BY_COLOR_ENDPOINT}?color=${e.target.value}&userId=${user.user}`)
+        fetch(`${BASE_URL}${BOTTOM_GET_BY_COLOR_ENDPOINT}?color=${e.target.value}&userId=${userId}`)
         .then(response => response.json())
         .then(data => console.log(data))
         .catch(error => console.error('Error:', error));
@@ -54,7 +63,7 @@ function Bottom() {
     }
 
     const handleGenreChange = (e) => {
-        fetch(`${BASE_URL}${BOTTOM_GET_BY_GENRE_ENDPOINT}?genre=${e.target.value}&userId=${user.user}`)
+        fetch(`${BASE_URL}${BOTTOM_GET_BY_GENRE_ENDPOINT}?genre=${e.target.value}&userId=${userId}`)
         .then(response => response.json())
         .then(data => console.log(data))
         .catch(error => console.error('Error:', error));
