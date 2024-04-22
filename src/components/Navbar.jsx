@@ -1,9 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+// eslint-disable-next-line no-unused-vars
 import React, { useContext } from 'react';
 import { UserContext } from '../pages/UserContext';
 
 function Navbar() {
-  const { user, dispatch } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   return (
     <div className="fixed w-full z-10 top-0">
       <nav>
