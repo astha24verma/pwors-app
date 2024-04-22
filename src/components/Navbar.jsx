@@ -1,10 +1,24 @@
 import { Link } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
-import React, { useContext } from 'react';
-import { UserContext } from '../pages/UserContext';
+import React, { useContext, useEffect } from 'react';
+// import { UserContext } from '../pages/UserContext';
+import useSessionUserId from '../pages/useSessionUserId';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
-  const { user } = useContext(UserContext);
+  // const { user } = useContext(UserContext);
+
+  const { userId, loading } = useSessionUserId();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // console.log('User:', userId, loading);
+    if (!loading && !userId) {
+        // navigate('/dashboard');
+    }
+}, [userId, navigate, loading]);
+
+  
   return (
     <div className="fixed w-full z-10 top-0">
       <nav>
@@ -20,17 +34,21 @@ function Navbar() {
               </div>
             </div>
             <div className="flex space-x-4 items-center">
-            {user ? (
-              <a href="/">
+            {userId ? (
+              <Link to="/">
+                
                 <button 
                     className="hover:text-gray-300" 
                     onClick={() => {
                         localStorage.removeItem('userId');
+                        console.log('Logged out');
+                        navigate('/');
+                        location.reload(); 
                     }}
                 >
-                    Logout
+                    Logout 
                 </button>
-              </a>
+              </Link>
                       ) : (
                         <>
                           <Link to="/login" className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-500 text-sm">

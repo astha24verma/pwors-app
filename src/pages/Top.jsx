@@ -17,7 +17,7 @@ function Top() {
     // console.log('User:', user);
 
     useEffect(() => {
-        console.log('User:', userId, loading);
+        // console.log('User:', userId, loading);
         if (!loading && !userId) {
             navigate('/login');
         }

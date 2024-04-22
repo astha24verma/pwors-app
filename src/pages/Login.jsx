@@ -37,6 +37,7 @@ function Login() {
                 setUser(responseData.userId);
                 localStorage.setItem('userId', responseData.userId);
                 navigate('/dashboard');
+                location.reload(); 
             } else {
                 const errorData = await response.json();
                 console.error('Login failed', errorData);
@@ -45,9 +46,9 @@ function Login() {
             console.error('Error:', error);
         }
     };
-    if (localStorage.getItem('userId')) {
-        navigate('/dashboard');
-    }
+    // if (localStorage.getItem('userId')) {
+    //     navigate('/dashboard');
+    // }
     // const user = useContext(UserContext);
     // console.log('User:', user);
     return (
