@@ -95,7 +95,12 @@ function Shoes() {
     const handleColorChange = (e) => {
         fetch(`${BASE_URL}${GET_SHOES_BY_COLOR_ENDPOINT}?color=${e.target.value}&userId=${userId}`)
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+            data.forEach(item => {
+                console.log(item.imageUrl);  // This will log all image URLs that comes in response
+            });
+            // console.log(data[0].imageUrl); // This will log the first image URL
+        })
         .catch(error => console.error('Error:', error));
     
     }
@@ -103,7 +108,12 @@ function Shoes() {
     const handleGenreChange = (e) => {
         fetch(`${BASE_URL}${GET_SHOES_BY_GENRE_ENDPOINT}?Genre=${e.target.value}&userId=${userId}`)
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+            data.forEach(item => {
+                console.log(item.imageUrl);  // This will log all image URLs that comes in response
+            });
+            // console.log(data[0].imageUrl); // This will log the first image URL
+        })
         .catch(error => console.error('Error:', error));
     }
 

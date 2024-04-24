@@ -91,14 +91,24 @@ function Bottom() {
     const handleColorChange = (e) => {
         fetch(`${BASE_URL}${BOTTOM_GET_BY_COLOR_ENDPOINT}?color=${e.target.value}&userId=${userId}`)
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => {
+                data.forEach(item => {
+                    console.log(item.imageUrl);  // This will log all image URLs that comes in response
+                });
+                // console.log(data[0].imageUrl); // This will log the first image URL
+            })
             .catch(error => console.error('Error:', error));
     };
 
     const handleGenreChange = (e) => {
         fetch(`${BASE_URL}${BOTTOM_GET_BY_GENRE_ENDPOINT}?genre=${e.target.value}&userId=${userId}`)
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => {
+                data.forEach(item => {
+                    console.log(item.imageUrl);  // This will log all image URLs that comes in response
+                });
+                // console.log(data[0].imageUrl); // This will log the first image URL
+            })
             .catch(error => console.error('Error:', error));
     };
 
