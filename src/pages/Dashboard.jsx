@@ -1,19 +1,26 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Items from './Items';
+import Planner from './Planner';
+
 
 function Dashboard() {
     return (
         <>
-            <nav style={{ position: 'relative', top: 100, left: 0, width: '100%', backgroundColor: 'transparent' }}>
+           
+            <div style={{ paddingTop: '60px', paddingBottom: '60px' }}>
+                {/* Add your dashboard content here */}
+                <Items />
+                
+               
+                {/* <nav style={{ position: 'relative', top: 100, left: 0, width: '100%', backgroundColor: 'transparent' }}>
                 <ul style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 20px', listStyleType: 'none', margin: 0 }}>
                     <li style={{ padding: '10px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px' }}><Link to="/top">Top</Link></li>
                     <li style={{ padding: '10px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px' }}><Link to="/bottom">Bottom</Link></li>
                     <li style={{ padding: '10px 20px', backgroundColor: '#f0f0f0', borderRadius: '5px' }}><Link to="/shoes">Shoes</Link></li>
                 </ul>
-            </nav>
-            <div style={{ paddingTop: '60px' }}>
-                {/* Add your dashboard content here */}
+            </nav> */}
             </div>
         </>
     );
