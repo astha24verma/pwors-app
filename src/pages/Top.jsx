@@ -11,18 +11,14 @@ import {
 } from './apiEndpoints';
 
 function Top() {
-    // const user = useUserContext();
     const { userId, loading } = useSessionUserId();
     const navigate = useNavigate();
-    // console.log('User:', user);
 
     useEffect(() => {
-        // console.log('User:', userId, loading);
         if (!loading && !userId) {
             navigate('/login');
         }
     }, [userId, navigate, loading]);
-    // console.log('User:', user);
     
     const [formData, setFormData] = useState({
         name: '',
@@ -37,24 +33,64 @@ function Top() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    // Replace your existing handleSubmit function with this
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        if (formData.imageUrl && formData.userId) {
+            console.log('Form data:', formData);
+            fetch(`${BASE_URL}${TOP_ADD_ENDPOINT}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    }, [formData]);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // console.log('Form data:', formData);
-        fetch(`${BASE_URL}${TOP_ADD_ENDPOINT}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+        
+        if (!file) {
+            console.error('No file selected');
+            return;
+        }
+
+        const imageUrl = await uploadImageToCloudinary(file);
+        console.log('Image URL from handle submit', imageUrl);
+        setFormData({ ...formData, imageUrl, userId });
+    };
+
+    const uploadImageToCloudinary = async (file) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', 'usjlsnfx');
+
+        try {
+            const cloudinaryResponse = await fetch('https://api.cloudinary.com/v1_1/dii4sv9ql/image/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!cloudinaryResponse.ok) {
+                throw new Error('Error uploading image to Cloudinary');
+            }
+
+            const cloudinaryData = await cloudinaryResponse.json();
+            const imageUrl = cloudinaryData.url;
+            console.log('Image URL:', imageUrl);
+            return imageUrl;
+        } catch (error) {
+            throw new Error('Error uploading image to Cloudinary: ' + error.message);
+        }
     };
 
     const handleColorChange = (e) => {
@@ -77,6 +113,7 @@ function Top() {
         <h1>Top Component</h1>
         <form onSubmit={handleSubmit}>
             <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+            <input type="file" id="fileInput" />
             <select name="color" value={formData.color} onChange={handleChange} required>
                 <option value="">Select color</option>
                 <option value="RED">Red</option>
