@@ -20,16 +20,16 @@ function Navbar() {
 
   
   return (
-    <div className="fixed w-full z-10 top-0">
+    <div className="fixed w-full z-10 top-0 bg-gray-800">
       <nav>
         <div className="">
           <div className="flex justify-between h-16 px-10 shadow items-center">
             <div className="flex items-center space-x-8">
               <h1 className="text-xl lg:text-4xl font-bold cursor-pointer">Wardrobe</h1>
               <div className="hidden md:flex justify-around space-x-4">
-                <a href="/dashboard" className="hover:text-indigo-600 text-gray-300">Home</a>
-                <a href="#" className="hover:text-indigo-600 text-gray-300">About</a>
-                <a href="#" className="hover:text-indigo-600 text-gray-300">Service</a>
+                <a href="/dashboard" className="hover:text-indigo-600 text-gray-300">Wardrobe</a>
+                <a href="#" className="hover:text-indigo-600 text-gray-300">Styling</a>
+                <a href="#" className="hover:text-indigo-600 text-gray-300">Planner</a>
                 <a href="#" className="hover:text-indigo-600 text-gray-300">Contact</a>
               </div>
             </div>
