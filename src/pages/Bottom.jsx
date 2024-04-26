@@ -27,26 +27,6 @@ function Bottom() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    useEffect(() => {
-        if (formData.imageUrl && formData.userId) {
-            console.log('Form data:', formData);
-            fetch(`${BASE_URL}${BOTTOM_ADD_ENDPOINT}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        }
-    }, [formData]);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -59,10 +39,26 @@ function Bottom() {
         }
 
         const imageUrl = await uploadImageToCloudinary(file);
-        console.log('Image URL from handle submit', imageUrl);
-        setFormData({ ...formData, imageUrl, userId });
-        
+        const updatedFormData = { ...formData, imageUrl, userId };
+        setFormData(updatedFormData);
+
+        const response = await fetch(`${BASE_URL}${BOTTOM_ADD_ENDPOINT}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedFormData),
+        });
+    
+        if (!response.ok) {
+            throw new Error('Error adding bottom');
+        }
+    
+        const responseData = await response.json();
+        console.log('Success:', responseData);
+        setFormData({ name: '', color: '', color_type: '' });
     };
+
 
     const uploadImageToCloudinary = async (file) => {
         const formData = new FormData();
