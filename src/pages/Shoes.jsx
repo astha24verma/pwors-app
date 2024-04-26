@@ -57,7 +57,7 @@ function Shoes() {
         });
     
         if (!response.ok) {
-            throw new Error('Error adding bottom');
+            throw new Error('Error adding Shoes');
         }
     
         const responseData = await response.json();

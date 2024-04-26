@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState, useContext } from 'react';
 // import { useUserContext } from './UserContext';
@@ -58,7 +59,7 @@ function Top() {
         });
     
         if (!response.ok) {
-            throw new Error('Error adding bottom');
+            throw new Error('Error adding Top');
         }
     
         const responseData = await response.json();
