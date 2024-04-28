@@ -9,10 +9,14 @@ import {
     GET_SHOES_BY_COLOR_ENDPOINT,
     GET_SHOES_BY_GENRE_ENDPOINT,
 } from './apiEndpoints';
+import Product from '../components/Product'
+
 
 function Shoes() {
     const { userId, loading } = useSessionUserId();
     const navigate = useNavigate();
+    const [fetchedData, setFetchedData] = useState([]);
+
 
     useEffect(() => {
         if (!loading && !userId) {
@@ -93,12 +97,13 @@ function Shoes() {
     const handleColorChange = (e) => {
         fetch(`${BASE_URL}${GET_SHOES_BY_COLOR_ENDPOINT}?color=${e.target.value}&userId=${userId}`)
         .then(response => response.json())
-        .then(data => {
-            data.forEach(item => {
-                console.log(item.imageUrl);  // This will log all image URLs that comes in response
-            });
-            // console.log(data[0].imageUrl); // This will log the first image URL
-        })
+        // .then(data => {
+        //     data.forEach(item => {
+        //         console.log(item.imageUrl);  // This will log all image URLs that comes in response
+        //     });
+        //     // console.log(data[0].imageUrl); // This will log the first image URL
+        // })
+        .then(data => setFetchedData(data))
         .catch(error => console.error('Error:', error));
     
     }
@@ -106,12 +111,13 @@ function Shoes() {
     const handleGenreChange = (e) => {
         fetch(`${BASE_URL}${GET_SHOES_BY_GENRE_ENDPOINT}?Genre=${e.target.value}&userId=${userId}`)
         .then(response => response.json())
-        .then(data => {
-            data.forEach(item => {
-                console.log(item.imageUrl);  // This will log all image URLs that comes in response
-            });
-            // console.log(data[0].imageUrl); // This will log the first image URL
-        })
+        // .then(data => {
+        //     data.forEach(item => {
+        //         console.log(item.imageUrl);  // This will log all image URLs that comes in response
+        //     });
+        //     // console.log(data[0].imageUrl); // This will log the first image URL
+        // })
+        .then(data => setFetchedData(data))
         .catch(error => console.error('Error:', error));
     }
 
@@ -181,6 +187,7 @@ function Shoes() {
                 <option value="ETHNIC">Ethnic</option>
             </select>
         </div>
+        <Product data={fetchedData} />
         </div>
     );
 }

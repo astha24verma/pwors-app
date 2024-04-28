@@ -12,9 +12,11 @@ import {
 } from './apiEndpoints';
 import Product from '../components/Product'
 
+
 function Top() {
     const { userId, loading } = useSessionUserId();
     const navigate = useNavigate();
+    const [fetchedData, setFetchedData] = useState([]);
 
     useEffect(() => {
         if (!loading && !userId) {
@@ -95,14 +97,14 @@ function Top() {
     const handleColorChange = (e) => {
         fetch(`${BASE_URL}${TOP_GET_BY_COLOR_ENDPOINT}?color=${e.target.value}&userId=${userId}`)
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => setFetchedData(data))
         .catch(error => console.error('Error:', error));
     }
 
     const handleGenreChange = (e) => {
         fetch(`${BASE_URL}${TOP_GET_BY_GENRE_ENDPOINT}?Genre=${e.target.value}&userId=${userId}`)
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => setFetchedData(data))
         .catch(error => console.error('Error:', error));
     }
 
@@ -182,7 +184,7 @@ function Top() {
                             </form>
                         </div>
                     </div>
-            <Product /><Product /><Product />
+                    <Product data={fetchedData} />
         </div>
         
         </>
