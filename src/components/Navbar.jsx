@@ -4,6 +4,7 @@ import React, { useContext, useEffect } from 'react';
 // import { UserContext } from '../pages/UserContext';
 import useSessionUserId from '../pages/useSessionUserId';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function Navbar() {
   // const { user } = useContext(UserContext);
@@ -49,6 +50,7 @@ function Navbar() {
                       className="hover:text-gray-300" 
                       onClick={() => {
                           localStorage.removeItem('userId');
+                          Cookies.remove('token'); 
                           console.log('Logged out');
                           navigate('/');
                           location.reload(); 

@@ -7,45 +7,60 @@ import {
     BASE_URL,
     LOGIN_USER_ENDPOINT
 } from './apiEndpoints';
+import Cookies from 'js-cookie';
 
 function Login() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const navigate = useNavigate();
-    const { setUser } = useUserContext();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const { setUser } = useUserContext();
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
+  const handleLogin = async (e) => {
+      e.preventDefault();
+      const loginData = { username, password };
 
-        const loginData = {
-            username,
-            password
-        };
+      try {
+          const response = await fetch(`${BASE_URL}${LOGIN_USER_ENDPOINT}`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(loginData),
+              credentials: 'include',
+          });
 
-        try {
-            const response = await fetch(`${BASE_URL}${LOGIN_USER_ENDPOINT}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(loginData)
-            });
+          if (response.ok) {
+              const responseData = await response.json();
+              console.log('Login successful', responseData);
+              setUser(responseData.userId);
+              const token = responseData.token;
+              const userId = responseData.userId;
+              //set cookie
+              Cookies.set('token', token, { expires: 7 });
+              console.log("Cookies : " + Cookies.get('token'));
+              localStorage.setItem('userId', userId);
+              navigate('/dashboard');
+              // reload
+              location.reload();
+          } else {
+              // Log the response and handle the error
+              console.error('Login failed');
+              console.error('Response status:', response.status);
+              console.error('Response data:', await response.text()); // Log the response text
+          }
+      } catch (error) {
+          console.error('Error:', error);
+      }
+  };
 
-            if (response.ok) {
-                const responseData = await response.json();
-                console.log('Login successful', responseData);
-                setUser(responseData.userId);
-                localStorage.setItem('userId', responseData.userId);
-                navigate('/dashboard');
-                location.reload(); 
-            } else {
-                const errorData = await response.json();
-                console.error('Login failed', errorData);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+  // Check if the user is already logged in (e.g., by checking for the JWT token in the cookie or localStorage)
+  const token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/,
+      '$1'
+  );
+  if (token) {
+      navigate('/dashboard');
+  }
     // if (localStorage.getItem('userId')) {
     //     navigate('/dashboard');
     // }

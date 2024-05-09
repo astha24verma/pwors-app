@@ -40,6 +40,7 @@ function Signup() {
                 setUserId(userId);
 
                 alert('Account created successfully');
+                navigate('/login'); // Redirect to the login page after successful registration
             } else {
                 const errorData = await response.json();
                 alert(`Error: ${errorData}`);
