@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function Items() {
     return (
         <>
-        <div class="bg-slate-300 bg-opacity-90 rounded-xl mt-10">
+        <div class="bg-transparent bg-opacity-90 rounded-xl mt-10">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div class="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-25">
             <h2 class="text-4xl font-bold text-gray-900">My Items</h2>

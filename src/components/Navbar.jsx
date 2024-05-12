@@ -21,7 +21,7 @@ function Navbar() {
 
   
   return (
-    <div className="fixed w-full z-10 top-0 bg-gray-800">
+    <div className="fixed w-full z-20 top-0 bg-gray-800">
       <nav>
         <div className="">
           <div className="flex justify-between h-16 px-10 shadow items-center">
