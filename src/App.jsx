@@ -13,6 +13,7 @@ import Top from './pages/Top'
 import Bottom from './pages/Bottom'
 import Shoes from './pages/Shoes'
 import bgVid from '../src/assets/whitebg.mp4';
+import Style from './pages/Style'
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/top" element={<Top />} />
             <Route path="/bottom" element={<Bottom />} />
             <Route path="/shoes" element={<Shoes />} />
+            <Route path="/style" element={<Style />} />
           </Routes>
         </main>
         <Footer />

@@ -30,7 +30,7 @@ function Navbar() {
               {userId ? (
               <div className="hidden md:flex justify-around space-x-4">
                 <a href="/dashboard" className="hover:text-indigo-600 text-gray-300">Closet</a>
-                <a href="#" className="hover:text-indigo-600 text-gray-300">Styling</a>
+                <a href="/style" className="hover:text-indigo-600 text-gray-300">Styling</a>
                 <a href="#" className="hover:text-indigo-600 text-gray-300">Planner</a>
                 <a href="#" className="hover:text-indigo-600 text-gray-300">Contact</a>
               </div>
