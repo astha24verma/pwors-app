@@ -26,6 +26,11 @@ function Shoes() {
     useEffect(() => {
         if (!loading && !userId) {
             navigate('/login');
+        } else if (userId) {
+          fetch(`${BASE_URL}/shoes?userId=${userId}`)
+            .then((response) => response.json())
+            .then((data) => setFetchedData(data))
+            .catch((error) => console.error("Error fetching tops:", error));
         }
     }, [userId, navigate, loading]);
     

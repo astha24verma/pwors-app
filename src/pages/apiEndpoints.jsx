@@ -1,5 +1,6 @@
 export const BASE_URL = 'http://localhost:8080';
 
+export const TOPS_ENDPOINT = '/top';
 export const TOP_ADD_ENDPOINT = '/top/add';
 export const TOP_GET_BY_COLOR_ENDPOINT = '/top/getByColor';
 export const TOP_GET_BY_GENRE_ENDPOINT = '/top/getByGenre';
